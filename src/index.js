@@ -1,11 +1,12 @@
-// import { io } from 'socket.io-client'
+import { io } from 'socket.io-client'
+const socket = io('http://localhost:3099')
 
-// const socket = io('http://localhost:3099')
-import './index.css'
+socket.on('connect', () => {
+  console.log(`You are connected width id: ${socket.id}`)
+})
 
-const obj = {
-  name: 'Ihor',
-  age: 33,
-}
+socket.on('receive-message', (msg) => {
+  // console.log(msg)
+})
 
-console.log({ ...obj, lastName: 'Pylypyak' })
+socket.emit('custom-event', 10)
