@@ -5,8 +5,10 @@ const io = require('socket.io')(3099, {
 })
 
 io.on('connection', (socket) => {
-  console.log(socket.id)
+  console.log('server:', socket.id)
+
   socket.emit(socket.id)
+
   socket.on('custom-event', (message) => {
     io.emit('receive-message', message)
   })

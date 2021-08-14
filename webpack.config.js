@@ -17,9 +17,9 @@ module.exports = {
   },
 
   plugins: [
-    new HtmlWebpackPlugin({ template: 'src/index.html' }),
-    new CleanWebpackPlugin(),
     new MiniCssExtractPlugin(),
+    new CleanWebpackPlugin(),
+    new HtmlWebpackPlugin({ template: 'src/index.html' }),
   ],
   module: {
     rules: [
@@ -31,7 +31,7 @@ module.exports = {
         },
       },
       {
-        test: /\.css$/i,
+        test: /\.(s[ac]|c)ss$/i,
         use: [MiniCssExtractPlugin.loader, 'css-loader'],
       },
     ],
