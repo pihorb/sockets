@@ -5,11 +5,14 @@ const io = require('socket.io')(3099, {
 })
 
 io.on('connection', (socket) => {
-  console.log('server:', socket.id)
-
   socket.emit(socket.id)
 
-  socket.on('custom-event', (message) => {
-    io.emit('receive-message', message)
+  socket.on('custom-event', ({ message, user }) => {
+    socket.userName = user
+    io.emit('message', { message, user })
+  })
+
+  socket.on('disconnect', () => {
+    io.emit('user-disconnected', socket.userName)
   })
 })

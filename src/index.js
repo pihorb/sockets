@@ -1,10 +1,18 @@
 import { io } from 'socket.io-client'
 import './styles/main.css'
-const socket = io('http://localhost:3099')
+
+const chat = document.querySelector('.chat')
+const login = document.querySelector('.login')
 
 const screen = document.getElementById('screen')
+const submitBtn = document.getElementById('submit')
+const nickNameBtn = document.getElementById('nickname')
 
-const displayMessage = ({ element, msg, guest }) => {
+chat.style.display = 'none'
+
+let userName = ''
+
+const displayMessage = ({ msg, guest = false }) => {
   const node = document.createElement('DIV')
   const text = document.createTextNode(msg)
   node.appendChild(text)
@@ -14,20 +22,42 @@ const displayMessage = ({ element, msg, guest }) => {
     node.classList.add('new')
   }
 
-  element.appendChild(node)
+  screen.appendChild(node)
 }
 
-socket.on('connect', () => {
-  console.log(`You are connected width id: ${socket.id}`)
-  displayMessage({
-    guest: true,
-    element: screen,
-    msg: `You are connected width id: ${socket.id}`,
+const init = () => {
+  const socket = io('http://localhost:3099')
+
+  socket.on('connect', () => {
+    displayMessage({
+      guest: true,
+      msg: `You are connected width id: ${socket.id}`,
+    })
   })
-})
 
-socket.on('receive-message', (msg) => {
-  console.log('Client:', msg)
-})
+  socket.on('message', ({ message, user }) => {
+    const newMessage = `${userName === user ? 'Me' : user}: ${message}`
+    displayMessage({ msg: newMessage, guest: userName !== user })
+  })
 
-// socket.emit('custom-event', 10)
+  socket.on('user-disconnected', (user) => {
+    displayMessage({ msg: `${user}: left the chat`, guest: true })
+  })
+
+  submitBtn.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') {
+      socket.emit('custom-event', { message: submit.value, user: userName })
+      submit.value = ''
+    }
+  })
+}
+
+nickNameBtn.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter') {
+    chat.style.display = 'flex'
+    login.style.display = 'none'
+    userName = nickNameBtn.value
+
+    init()
+  }
+})
