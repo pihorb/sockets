@@ -7,9 +7,12 @@ const io = require('socket.io')(3099, {
 io.on('connection', (socket) => {
   socket.emit(socket.id)
 
-  socket.on('custom-event', ({ message, user }) => {
+  socket.on('new-user', (user) => {
     socket.userName = user
-    io.emit('message', { message, user })
+  })
+
+  socket.on('message', ({ message, user, isTyping }) => {
+    io.emit('user-message', { message, user, isTyping })
   })
 
   socket.on('disconnect', () => {

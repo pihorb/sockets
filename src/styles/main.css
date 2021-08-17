@@ -22,7 +22,7 @@ body {
 }
 
 .chat {
-  display: flex;
+  display: none;
   flex-direction: column;
   width: 100%;
   height: 100%;
@@ -68,7 +68,49 @@ input {
   background: var(--gray);
 }
 
-textarea:focus,
-input:focus {
-  outline: none;
+.animation-container {
+  display: flex;
+  align-items: center;
+  margin: 0 10px;
+}
+
+#typing-indicator {
+  display: flex;
+  margin: 5px 10px;
+  width: fit-content;
+  padding: 7px;
+  background-color: var(--ti-color-bg);
+  will-change: transform;
+  border-radius: 50px;
+  position: relative;
+  animation: 2s bulge infinite ease-out;
+}
+
+#typing-indicator > span {
+  height: 8px;
+  width: 8px;
+  float: left;
+  margin: 0 1px;
+  background-color: #9e9ea1;
+  display: block;
+  border-radius: 50%;
+  opacity: 0.4;
+}
+
+#typing-indicator > span:nth-child(1) {
+  animation: blink 1s infinite;
+}
+
+#typing-indicator > span:nth-child(2) {
+  animation: blink 2s infinite;
+}
+
+#typing-indicator > span:nth-child(3) {
+  animation: blink 3s infinite;
+}
+
+@keyframes blink {
+  50% {
+    opacity: 1;
+  }
 }

@@ -1,31 +1,16 @@
 import { io } from 'socket.io-client'
 import './styles/main.css'
+import { displayMessage, displayAnimation, removeAnimation } from './helpers'
 
 const chat = document.querySelector('.chat')
 const login = document.querySelector('.login')
-
-const screen = document.getElementById('screen')
 const submitBtn = document.getElementById('submit')
 const nickNameBtn = document.getElementById('nickname')
 
-chat.style.display = 'none'
-
 let userName = ''
+let isTyping = false
 
-const displayMessage = ({ msg, guest = false }) => {
-  const node = document.createElement('DIV')
-  const text = document.createTextNode(msg)
-  node.appendChild(text)
-  node.className = 'message'
-
-  if (guest) {
-    node.classList.add('new')
-  }
-
-  screen.appendChild(node)
-}
-
-const init = () => {
+const initSocketIO = () => {
   const socket = io('http://localhost:3099')
 
   socket.on('connect', () => {
@@ -35,8 +20,17 @@ const init = () => {
     })
   })
 
-  socket.on('message', ({ message, user }) => {
+  socket.on('user-message', ({ message, user, isTyping }) => {
     const newMessage = `${userName === user ? 'Me' : user}: ${message}`
+
+    if (message === '') {
+      if (userName !== user) {
+        return isTyping ? displayAnimation(user) : removeAnimation()
+      }
+      return
+    }
+
+    removeAnimation()
     displayMessage({ msg: newMessage, guest: userName !== user })
   })
 
@@ -44,20 +38,41 @@ const init = () => {
     displayMessage({ msg: `${user}: left the chat`, guest: true })
   })
 
-  submitBtn.addEventListener('keydown', (e) => {
+  return socket
+}
+
+const addEventListeners = () => {
+  let socket = ''
+
+  nickNameBtn.addEventListener('keydown', (e) => {
     if (e.key === 'Enter') {
-      socket.emit('custom-event', { message: submit.value, user: userName })
-      submit.value = ''
+      chat.style.display = 'flex'
+      login.style.display = 'none'
+      userName = nickNameBtn.value
+
+      socket = initSocketIO()
+
+      socket.emit('new-user', userName)
+    }
+  })
+
+  submitBtn.addEventListener('keyup', (e) => {
+    if (!isTyping) {
+      socket.emit('message', { message: '', user: userName, isTyping: true })
+      isTyping = true
+    }
+
+    if ((e.key === 'Enter' && submitBtn.value) || !submitBtn.value) {
+      socket.emit('message', {
+        message: submitBtn.value,
+        user: userName,
+        isTyping: false,
+      })
+
+      isTyping = false
+      submitBtn.value = ''
     }
   })
 }
 
-nickNameBtn.addEventListener('keydown', (e) => {
-  if (e.key === 'Enter') {
-    chat.style.display = 'flex'
-    login.style.display = 'none'
-    userName = nickNameBtn.value
-
-    init()
-  }
-})
+addEventListeners()
