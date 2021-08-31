@@ -1,5 +1,7 @@
 const express = require('express')
 const app = express()
+const path = require('path')
+
 const server = require('http').Server(app)
 const io = require('socket.io')(server, {
   cors: {
@@ -9,9 +11,7 @@ const io = require('socket.io')(server, {
 
 const PORT = process.env.PORT || 3033
 
-app.get('/', (req, res) => {
-  res.sendFile(__dirname + '../dist/index.html')
-})
+app.use('/', express.static(path.join(__dirname, '../dist')))
 
 io.on('connection', (socket) => {
   socket.emit(socket.id)
