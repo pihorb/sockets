@@ -6,15 +6,30 @@
     <title>Socket.io</title>
   </head>
   <body>
-    <div class="container">
-      <div class="login">
-        <label for="nickname">Enter your Nickname</label>
-        <input type="text" placeholder="Enter text" id="nickname" />
+    <!-- Login Form -->
+    <div class="login">
+      <div class="name">
+        <label for="nickname">User name:</label>
+        <input type="text" placeholder="Enter ..." id="nickname" />
       </div>
-      <div class="chat">
-        <div id="screen"></div>
-        <input type="text" placeholder="Enter text" id="submit" />
+      <div class="room">
+        <label for="room-selector">Select room:</label>
+        <select id="room-selector">
+          <option>BMW</option>
+          <option>Skoda</option>
+          <option>Audi</option>
+        </select>
       </div>
+      <div class="login-btn">
+        <button id="submit-login" type="submit">Log in</button>
+      </div>
+    </div>
+
+    <!-- Chat Room -->
+
+    <div class="chat">
+      <div id="screen"></div>
+      <input type="text" placeholder="Enter text" id="submit" />
     </div>
   </body>
 </html>

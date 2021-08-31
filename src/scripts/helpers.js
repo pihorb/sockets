@@ -1,6 +1,6 @@
 const screen = document.getElementById('screen')
 
-export const displayMessage = ({ msg, guest = false }) => {
+const displayMessage = ({ msg, guest = false }) => {
   const node = document.createElement('DIV')
   const text = document.createTextNode(msg)
   node.appendChild(text)
@@ -13,7 +13,7 @@ export const displayMessage = ({ msg, guest = false }) => {
   screen.appendChild(node)
 }
 
-export const displayAnimation = (user) => {
+const displayAnimation = (user) => {
   const div = document.createElement('DIV')
 
   const holder = div.cloneNode(true)
@@ -30,7 +30,9 @@ export const displayAnimation = (user) => {
   screen.appendChild(div)
 }
 
-export const removeAnimation = () => {
+const removeAnimation = () => {
   const animation = document.querySelector('.animation-container')
   return animation && screen.removeChild(animation)
 }
+
+export { removeAnimation, displayAnimation, displayMessage }

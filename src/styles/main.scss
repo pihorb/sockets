@@ -1,24 +1,66 @@
 @import './variables';
 
 body {
-  background-color: var(--light-gray);
   width: 100vw;
   height: 100vh;
+  background: var(--light-gray);
+  font-family: 'Open Sans', sans-serif, Arial;
 }
 
-.container {
+.login {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: var(--white);
+  width: 100%;
   top: 50%;
   left: 50%;
-  width: 500px;
-  height: 500px;
+  width: 400px;
+  height: 400px;
   display: flex;
   border-radius: 4px;
   position: absolute;
-  align-items: center;
-  flex-direction: column;
-  justify-content: center;
   transform: translate(-50%, -50%);
-  border: 2px solid var(--dark-gray);
+  box-sizing: border-box;
+  padding: 0 20px;
+
+  .name,
+  .room {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+  }
+
+  .login-btn {
+    display: flex;
+    width: 100%;
+
+    button {
+      border: none;
+      width: 100%;
+      color: var(--white);
+      padding: 0.5em 0.75em;
+      text-align: center;
+      text-decoration: none;
+      text-transform: uppercase;
+      margin: 20px 0;
+      font-size: 14px;
+      cursor: pointer;
+      border-radius: 4px;
+      background: var(--orange);
+      &:hover {
+        background: var(--dark);
+      }
+    }
+  }
+
+  label {
+    color: var(--dark-gray);
+    font-size: 16px;
+    padding: 10px 0 5px 0;
+  }
 }
 
 .chat {
@@ -26,17 +68,6 @@ body {
   flex-direction: column;
   width: 100%;
   height: 100%;
-}
-
-.login {
-  display: flex;
-  flex-direction: column;
-  width: 90%;
-  margin: 10px;
-}
-
-label {
-  padding-left: 10px;
 }
 
 #screen {
@@ -48,14 +79,12 @@ label {
   background: var(--white);
 }
 
-input {
-  width: 90%;
-  margin: 10px;
-  font-size: 16px;
+input,
+select {
   border-radius: 4px;
   padding: 0.5em 0.75em;
-  background-color: var(--white);
   border: 2px solid var(--dark-gray);
+  outline-style: none;
 }
 
 .message {

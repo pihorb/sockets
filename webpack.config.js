@@ -32,11 +32,11 @@ module.exports = {
       },
       {
         test: /\.(s[ac]|c)ss$/i,
-        use: [MiniCssExtractPlugin.loader, 'css-loader'],
+        use: [MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader'],
       },
     ],
   },
-  entry: './src/index.js',
+  entry: './src/scripts/index.js',
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: '[fullhash].bundle.js',
