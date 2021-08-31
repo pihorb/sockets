@@ -1,11 +1,13 @@
 const express = require('express')
 const app = express()
 const server = require('http').Server(app)
-const { Server } = require('socket.io')
+const io = require('socket.io')(server, {
+  cors: {
+    origin: 'http://localhost:8080',
+  },
+})
 
 const PORT = process.env.PORT || 3033
-
-const io = new Server(server)
 
 app.get('/', (req, res) => {
   res.sendFile(__dirname + '../dist/index.html')
@@ -27,4 +29,4 @@ io.on('connection', (socket) => {
   })
 })
 
-server.listen(PORT, () => `Server is running on port: ${PORT}`)
+server.listen(PORT, () => console.log(`Server is running on port: ${PORT}`))
