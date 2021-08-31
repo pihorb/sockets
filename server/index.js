@@ -1,3 +1,8 @@
+const express = require('express')
+const app = express()
+
+app.use(express.static(__dirname + '../dist'))
+
 const io = require('socket.io')(3099, {
   cors: {
     origin: ['http://localhost:8080'],
