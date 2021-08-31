@@ -11,7 +11,7 @@ let userName = ''
 let isTyping = false
 
 const initSocketIO = () => {
-  const socket = io('http://localhost:3099')
+  const socket = io('http://localhost:3033')
 
   socket.on('connect', () => {
     displayMessage({
