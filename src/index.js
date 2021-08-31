@@ -11,7 +11,7 @@ let userName = ''
 let isTyping = false
 
 const initSocketIO = () => {
-  const socket = io('http://localhost:3033')
+  const socket = io('https://fierce-plateau-64896.herokuapp.com/')
 
   socket.on('connect', () => {
     displayMessage({

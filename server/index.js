@@ -5,7 +5,7 @@ const path = require('path')
 const server = require('http').Server(app)
 const io = require('socket.io')(server, {
   cors: {
-    origin: 'http://localhost:8080',
+    origin: 'https://fierce-plateau-64896.herokuapp.com/',
   },
 })
 
