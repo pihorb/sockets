@@ -3,7 +3,15 @@ const app = express()
 const path = require('path')
 
 const server = require('http').Server(app)
-const io = require('socket.io')(server)
+const isDev = process.env.NODE_ENV !== 'production'
+
+const CORS = {
+  cors: {
+    origin: 'http://localhost:8080',
+  },
+}
+
+const io = require('socket.io')(server, isDev && { ...CORS })
 
 const PORT = process.env.PORT || 3033
 

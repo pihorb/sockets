@@ -11,8 +11,8 @@ let userName = ''
 let isTyping = false
 
 const initSocketIO = () => {
-  const socket = io('https://fierce-plateau-64896.herokuapp.com/')
-
+  const isDev = process.env.NODE_ENV === 'development'
+  const socket = io(isDev ? 'http://localhost:3033' : '')
   socket.on('connect', () => {
     displayMessage({
       guest: true,
