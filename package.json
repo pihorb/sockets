@@ -5,12 +5,13 @@
   "author": "Ihor Pylypyak",
   "license": "MIT",
   "scripts": {
-    "start": "webpack serve",
+    "start": "node ./server/index.js",
+    "dev": "yarn start",
     "watch": "webpack --watch",
     "build": "NODE_ENV=production webpack",
     "build-dev": "webpack",
     "start-server": "nodemon ./server/index.js",
-    "dev": "concurrently \"yarn start\" \"yarn start-server\""
+    "server-client": "concurrently \"yarn start\" \"yarn start-server\""
   },
   "dependencies": {
     "express": "^4.17.1",
