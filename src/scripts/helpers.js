@@ -1,16 +1,38 @@
-const screen = document.getElementById('screen')
+import { login } from './auth'
+import { initSocketConnection } from './chat'
 
-const displayMessage = ({ msg, guest = false }) => {
-  const node = document.createElement('DIV')
-  const text = document.createTextNode(msg)
-  node.appendChild(text)
-  node.className = 'message'
+const pages = {
+  login: document.querySelector('.login'),
+  chat: document.querySelector('.chat'),
+}
+const $screen = document.getElementById('screen')
 
-  if (guest) {
-    node.classList.add('new')
+export const openPage = (pageToOpen) => {
+  for (const page in pages) {
+    pages[page].classList.remove('show')
   }
 
-  screen.appendChild(node)
+  pages[pageToOpen].classList.add('show')
+
+  if (pageToOpen === 'login') {
+    login()
+  }
+
+  if (pageToOpen === 'chat') {
+    initSocketConnection()
+  }
+}
+
+const addUserToMenu = ({ username, self }) => {
+  const $list = document.querySelector('.chat__list')
+  const user = document.createElement('li')
+  user.className = 'chat__user'
+  user.innerHTML = `<span>${username}</span>`
+
+  if (self) {
+    user.innerHTML += `<span>(yourself)</span>`
+  }
+  $list.appendChild(user)
 }
 
 const displayAnimation = (user) => {
@@ -27,12 +49,12 @@ const displayAnimation = (user) => {
   for (let i = 0; i < 3; i++) {
     holder.appendChild(span.cloneNode(true))
   }
-  screen.appendChild(div)
+  $screen.appendChild(div)
 }
 
 const removeAnimation = () => {
   const animation = document.querySelector('.animation-container')
-  return animation && screen.removeChild(animation)
+  return animation && $screen.removeChild(animation)
 }
 
-export { removeAnimation, displayAnimation, displayMessage }
+export { removeAnimation, displayAnimation, addUserToMenu }

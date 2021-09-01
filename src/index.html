@@ -3,16 +3,18 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="logo.ico" type="image/ico" />
     <title>Socket.io</title>
   </head>
   <body>
     <!-- Login Form -->
+
     <div class="login">
-      <div class="name">
+      <div class="login__name">
         <label for="nickname">User name:</label>
         <input type="text" placeholder="Enter ..." id="nickname" />
       </div>
-      <div class="room">
+      <div class="login__room">
         <label for="room-selector">Select room:</label>
         <select id="room-selector">
           <option>BMW</option>
@@ -20,7 +22,7 @@
           <option>Audi</option>
         </select>
       </div>
-      <div class="login-btn">
+      <div class="login__btn">
         <button id="submit-login" type="submit">Log in</button>
       </div>
     </div>
@@ -28,8 +30,12 @@
     <!-- Chat Room -->
 
     <div class="chat">
-      <div id="screen"></div>
-      <input type="text" placeholder="Enter text" id="submit" />
+      <div class="chat__menu">
+        <ul class="chat__list"></ul>
+      </div>
+      <div class="chat__content">
+        <div class="chat__header"></div>
+      </div>
     </div>
   </body>
 </html>
