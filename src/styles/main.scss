@@ -70,7 +70,7 @@ body {
       justify-content: space-between;
       background: var(--light-dark);
       width: 100%;
-      padding: 15px;
+      padding: 15px 20px;
     }
 
     footer {
@@ -114,6 +114,17 @@ body {
     padding: 20px;
     color: var(--white);
     background: var(--orange);
+  }
+
+  &__rooms-title,
+  &__users-title {
+    display: flex;
+    align-items: center;
+    img {
+      width: 15px;
+      height: 15px;
+      margin-right: 5px;
+    }
   }
 
   &__room {

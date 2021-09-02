@@ -31,12 +31,13 @@ module.exports = {
     new CopyWebpackPlugin({
       patterns: [
         {
-          from: path.resolve(__dirname, 'src/images/logo.ico'),
-          to: path.resolve(__dirname, 'dist'),
+          from: path.resolve(__dirname, 'src/images'),
+          to: path.resolve(__dirname, 'dist/images'),
         },
       ],
     }),
   ],
+
   module: {
     rules: [
       {
@@ -49,6 +50,12 @@ module.exports = {
       {
         test: /\.(s[ac]|c)ss$/i,
         use: [MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader'],
+      },
+      {
+        test: /\.(png|svg|jpg|jpeg|gif)$/i,
+        use: {
+          loader: 'url-loader',
+        },
       },
     ],
   },
