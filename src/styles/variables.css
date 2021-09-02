@@ -2,10 +2,13 @@
   --white: #fff;
   --gray: #d0d0d0;
   --dark-gray: #939393;
-  --orange: #fa6b30;
   --light-gray: #f5f5f5;
   --ti-color-bg: #e6e7ed;
   --dark: #000000;
-  --menu: #3f0e40;
+  --light-dark: #20232a;
   --lite-green: #7e9c70;
+
+  --orange: #fa6b30;
+  --dark-orange: #e35013;
+  --light-orange: #eba285;
 }

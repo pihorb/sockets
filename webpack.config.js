@@ -20,7 +20,14 @@ module.exports = {
   plugins: [
     new MiniCssExtractPlugin(),
     new CleanWebpackPlugin(),
-    new HtmlWebpackPlugin({ template: 'src/index.html' }),
+    new HtmlWebpackPlugin({
+      template: 'src/index.html',
+      filename: 'index.html',
+    }),
+    new HtmlWebpackPlugin({
+      filename: 'chat.html',
+      template: 'src/chat.html',
+    }),
     new CopyWebpackPlugin({
       patterns: [
         {
@@ -45,7 +52,7 @@ module.exports = {
       },
     ],
   },
-  entry: './src/scripts/index.js',
+  entry: './src/index.js',
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: '[fullhash].bundle.js',

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="logo.ico" type="image/ico" />
+    <title>Chat</title>
+  </head>
+  <body>
+    <div class="chat__container">
+      <header>
+        <div class="chat__title">Chat</div>
+        <button type="submit" class="chat__leave">Leave Room</button>
+      </header>
+      <main class="chat__main">
+        <div class="chat__menu">
+          <div class="chat__rooms">
+            <h4>Room Name:</h4>
+            <div class="chat__room">JavaScript</div>
+          </div>
+          <ul class="chat__users">
+            <h4>Users:</h4>
+            <li class="chat__user">Ihor</li>
+            <li class="chat__user">Sasha</li>
+            <li class="chat__user">Oleh</li>
+          </ul>
+        </div>
+        <div class="chat__interface">
+          <div class="chat__message">
+            <div class="chat__message-info">
+              <span>Ihor</span><span>16:40 pm</span>
+            </div>
+            <div class="chat__message-text">Hi! How are you ?</div>
+          </div>
+          <div class="chat__message">
+            <div class="chat__message-info">
+              <span>Sasha</span><span>17:00 pm</span>
+            </div>
+            <div class="chat__message-text">Very well! I love you!</div>
+          </div>
+          <div class="chat__message">
+            <div class="chat__message-info">
+              <span>Ihor</span><span>17:01 pm</span>
+            </div>
+            <div class="chat__message-text">I love you too!</div>
+          </div>
+        </div>
+      </main>
+      <footer>
+        <input
+          type="text"
+          name="message"
+          id="message"
+          placeholder="Enter Message"
+          required
+        />
+        <button type="submit" class="chat__send">Send</button>
+      </footer>
+    </div>
+  </body>
+</html>
