@@ -49,8 +49,11 @@ workflows:
   build_deploy:
     jobs:
       - build:
-          name: build_app
+          name: build_production
+
       - deploy:
+          requires:
+            - build_production
           filters:
             branches:
               only:
