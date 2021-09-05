@@ -30,20 +30,11 @@ commands:
 
       - run: yarn build
 
-  deploy_app:
-    steps:
-      - heroku/deploy-via-git
-
 jobs:
   build:
     executor: node14
     steps:
       - build_app
-
-  deploy:
-    executor: heroku/default
-    steps:
-      - deploy_app
 
 workflows:
   build_deploy:
@@ -51,5 +42,4 @@ workflows:
       - build:
           name: build_production
 
-      - deploy:
-          name: deploy_production
+      - heroku/deploy-via-git
