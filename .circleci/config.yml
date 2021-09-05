@@ -41,7 +41,7 @@ jobs:
       - build_app
 
   deploy:
-    executor: node14
+    executor: heroku/default
     steps:
       - deploy_app
 
