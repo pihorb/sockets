@@ -33,7 +33,6 @@ jobs:
 
 deploy:
   executor: heroku/deploy-via-git
-  steps:
 
 workflows:
   version: 2.1
