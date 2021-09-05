@@ -25,7 +25,6 @@ jobs:
 
       - run: yarn build
 
-jobs:
   deploy:
     steps:
       - checkout
@@ -37,5 +36,3 @@ jobs:
           HEROKU_API_KEY=${HEROKU_API_KEY} heroku container:login
           HEROKU_API_KEY=${HEROKU_API_KEY} heroku container:push -a pihorb-chat-app web
           HEROKU_API_KEY=${HEROKU_API_KEY} heroku container:release -a pihorb-chat-app web
-
-
