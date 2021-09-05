@@ -1,3 +1,5 @@
+version: 2.1
+
 executors:
   node14:
     docker:
@@ -41,8 +43,6 @@ jobs:
       - deploy_app
 
 workflows:
-  version: 2.1
-
   build_deploy:
     jobs:
       - build:
