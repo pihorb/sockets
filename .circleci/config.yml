@@ -1,39 +1,48 @@
-version: 2.1
+executors:
+  node14:
+    docker:
+      - image: cimg/node:16.8.0
+    working_directory: ~/repo
 
-orbs:
-  heroku: circleci/heroku@0.0.10
+commands:
+  build_app:
+    steps:
+      - checkout
+
+      # Download and cache dependencies
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "package.json" }}
+            # fallback to using the latest cache if no exact match is found
+            - v1-dependencies-
+
+      - run: yarn install
+
+      - save_cache:
+          paths:
+            - node_modules
+          key: v1-dependencies-{{ checksum "package.json" }}
+
+      - run: yarn build
+
+jobs:
+  build:
+    executor: node14
+    steps:
+      - build_app
+
+deploy:
+  executor: heroku/deploy-via-git
+  steps:
 
 workflows:
-  build_app:
+  version: 2.1
+
+  build_deploy:
     jobs:
-      build:
-        docker:
-          - image: cimg/node:16.8.0
-
-        working_directory: ~/repo
-
-        steps:
-          - checkout
-
-          # Download and cache dependencies
-          - restore_cache:
-              keys:
-                - v1-dependencies-{{ checksum "package.json" }}
-                # fallback to using the latest cache if no exact match is found
-                - v1-dependencies-
-
-          - run: yarn install
-
-          - save_cache:
-              paths:
-                - node_modules
-              key: v1-dependencies-{{ checksum "package.json" }}
-
-          - run: yarn build
-
-  heroku_deploy:
-    jobs:
-      - heroku/deploy-via-git:
+      - build:
+          name: build_app
+      - deploy:
           filters:
             branches:
               only:
