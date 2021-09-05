@@ -20,6 +20,7 @@ const CORS = {
 }
 
 const io = require('socket.io')(server, isDev && { ...CORS })
+
 app.use('/', express.static(path.join(__dirname, '../dist')))
 
 io.on(SOCKET_EVENTS['CONNECTION'], (socket) => {
