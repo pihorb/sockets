@@ -30,11 +30,3 @@ workflows:
               key: v1-dependencies-{{ checksum "package.json" }}
 
           - run: yarn build
-
-  heroku_deploy:
-    jobs:
-      - heroku/deploy-via-git:
-          filters:
-            branches:
-              only:
-                - master
