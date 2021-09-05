@@ -11,7 +11,3 @@ jobs:
         name: Install deps
         command: |
           yarn install
-workflows:
-  deps:
-    jobs:
-      - install_deps
