@@ -41,7 +41,6 @@ jobs:
       - build_app
 
   deploy:
-    executor: heroku/deploy-via-git
     steps:
       - deploy_app
 
