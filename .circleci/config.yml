@@ -52,9 +52,4 @@ workflows:
           name: build_production
 
       - deploy:
-          requires:
-            - build_production
-          filters:
-            branches:
-              only:
-                - master
+          name: deploy_production
