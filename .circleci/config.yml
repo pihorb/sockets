@@ -25,14 +25,20 @@ commands:
 
       - run: yarn build
 
+  deploy_app:
+    steps:
+      - heroku/deploy-via-git
+
 jobs:
   build:
     executor: node14
     steps:
       - build_app
 
-deploy:
-  executor: heroku/deploy-via-git
+  deploy:
+    executor: heroku/deploy-via-git
+    steps:
+      - deploy_app
 
 workflows:
   version: 2.1
