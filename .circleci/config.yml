@@ -1,26 +1,29 @@
-# This config is equivalent to both the '.circleci/extended/orb-free.yml' and the base '.circleci/config.yml'
-version: 2.1
-
+version: 2
 jobs:
   build:
     docker:
-      - image: circleci/node@4.1
+      - image: node:11.10.1
 
     working_directory: ~/repo
 
     steps:
       - checkout
 
-    - restore_cache:
-      keys:
-        - v1-dependencies-{{ checksum "package.json" }}
-        - v1-dependencies
+      # Download and cache dependencies
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "package.json" }}
+            # fallback to using the latest cache if no exact match is found
+            - v1-dependencies-
 
-    - run: yarn install
+      - run: yarn install
 
-    - save_cache:
-      paths:
-        - node_modules
-      key: v1-dependencies-{{ checksum "package.json" }}
+      - save_cache:
+          paths:
+            - node_modules
+          key: v1-dependencies-{{ checksum "package.json" }}
 
-    - run: yarn build
+      # run tests!
+      - run: yarn test
+
+      - run: yarn build
