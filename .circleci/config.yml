@@ -29,6 +29,12 @@ jobs:
 
       - run: yarn build
 
+workflows:
+  build_app:
+    jobs:
+      - build:
+        name: build_application
+
   heroku_deploy:
     jobs:
       - heroku/deploy-via-git:
