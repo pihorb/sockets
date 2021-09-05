@@ -41,6 +41,7 @@ jobs:
       - build_app
 
   deploy:
+    executor: node14
     steps:
       - deploy_app
 
