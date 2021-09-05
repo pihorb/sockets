@@ -26,6 +26,7 @@ jobs:
       - run: yarn build
 
   deploy:
+    machine: true
     steps:
       - checkout
       - run:
