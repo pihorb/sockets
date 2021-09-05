@@ -20,52 +20,55 @@ const CORS = {
 }
 
 const io = require('socket.io')(server, isDev && { ...CORS })
-app.use('/', express.static(path.join(__dirname, '../dist')))
 
-io.on(SOCKET_EVENTS['CONNECTION'], (socket) => {
-  socket.on(SOCKET_EVENTS['USER_JOIN'], ({ username, room }, cb) => {
-    const user = userJoin({ username, room, id: socket.id })
+app.use('/', (req, res) => res.send('Hello world'))
 
-    cb('Admin', `${user.username}, welcome to chat!`)
-    socket.join(room)
+// app.use('/', express.static(path.join(__dirname, '../dist')))
 
-    socket.broadcast.to(user.room).emit(SOCKET_EVENTS['MESSAGE'], {
-      user: user.username,
-      msg: `${user.username} has joined the chat`,
-    })
+// io.on(SOCKET_EVENTS['CONNECTION'], (socket) => {
+//   socket.on(SOCKET_EVENTS['USER_JOIN'], ({ username, room }, cb) => {
+//     const user = userJoin({ username, room, id: socket.id })
 
-    io.to(user.room).emit(SOCKET_EVENTS['ALL_USERS'], {
-      room: user.room,
-      users: getAllUsers(user.room),
-    })
-  })
+//     cb('Admin', `${user.username}, welcome to chat!`)
+//     socket.join(room)
 
-  socket.on(SOCKET_EVENTS['CHAT_MESSAGE'], (msg) => {
-    const user = getCurrentUser(socket.id)
+//     socket.broadcast.to(user.room).emit(SOCKET_EVENTS['MESSAGE'], {
+//       user: user.username,
+//       msg: `${user.username} has joined the chat`,
+//     })
 
-    if (user) {
-      io.to(user.room).emit(SOCKET_EVENTS['MESSAGE'], {
-        user: user.username,
-        msg,
-      })
-    }
-  })
+//     io.to(user.room).emit(SOCKET_EVENTS['ALL_USERS'], {
+//       room: user.room,
+//       users: getAllUsers(user.room),
+//     })
+//   })
 
-  socket.on(SOCKET_EVENTS['DISCONNECT'], () => {
-    const user = userLeft(socket.id)
+//   socket.on(SOCKET_EVENTS['CHAT_MESSAGE'], (msg) => {
+//     const user = getCurrentUser(socket.id)
 
-    if (user) {
-      socket.broadcast.to(user.room).emit(SOCKET_EVENTS['MESSAGE'], {
-        user: user.username,
-        msg: `${user.username} has left the chat`,
-      })
+//     if (user) {
+//       io.to(user.room).emit(SOCKET_EVENTS['MESSAGE'], {
+//         user: user.username,
+//         msg,
+//       })
+//     }
+//   })
 
-      io.to(user.room).emit(SOCKET_EVENTS['ALL_USERS'], {
-        room: user.room,
-        users: getAllUsers(user.room),
-      })
-    }
-  })
-})
+//   socket.on(SOCKET_EVENTS['DISCONNECT'], () => {
+//     const user = userLeft(socket.id)
+
+//     if (user) {
+//       socket.broadcast.to(user.room).emit(SOCKET_EVENTS['MESSAGE'], {
+//         user: user.username,
+//         msg: `${user.username} has left the chat`,
+//       })
+
+//       io.to(user.room).emit(SOCKET_EVENTS['ALL_USERS'], {
+//         room: user.room,
+//         users: getAllUsers(user.room),
+//       })
+//     }
+//   })
+// })
 
 server.listen(PORT, () => console.log(`Server is running on port: ${PORT}`))
