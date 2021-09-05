@@ -42,4 +42,10 @@ workflows:
       - build:
           name: build_production
 
-      - heroku/deploy-via-git
+      - heroku/deploy-via-git:
+          requires:
+            - build_production
+          filters:
+            branches:
+              only:
+                - master
