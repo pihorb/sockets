@@ -1,8 +1,9 @@
-Simple chat 
-  Usage: 
-    Open few browser windows and try to type messages
+# Socket Chat Room
 
-Instructions: 
-  1. Clone this repo
-  2. Cd in to project folder
-  3. Enter in your terminal `yarn dev` 
+[You can check check it out](https://pihorb-chat-app.herokuapp.com/)
+
+## For dev:
+
+1. Clone this repo
+2. Cd in to project folder
+3. Enter in your terminal `yarn dev`
